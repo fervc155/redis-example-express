@@ -1,4 +1,3 @@
-// src/components/EndpointTester.jsx
 import { useState } from "react";
 import { fetchEndpoint } from "../api/client";
 
@@ -6,15 +5,19 @@ export default function EndpointTester({ label, path, resultParser = null }) {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState(null);
+
   const run = async () => {
     setLoading(true);
+
     const res = await fetchEndpoint(path);
+
     setResult(res);
-    setLoading(false);
 
     setResultData(
-      resultParser ? resultParser(res) : JSON.stringify(result.data, null, 2),
+      resultParser ? resultParser(res) : JSON.stringify(res.data, null, 2),
     );
+
+    setLoading(false);
   };
 
   return (
@@ -28,6 +31,13 @@ export default function EndpointTester({ label, path, resultParser = null }) {
       {result && (
         <>
           <p>⏱ {result.time} ms</p>
+
+          {/* 🔥 status HTTP */}
+          <p>📡 Status: {result.status}</p>
+
+          {/* 🔥 nginx cache */}
+          {result.cacheStatus && <p>🧠 Nginx: {result.cacheStatus}</p>}
+
           <pre>{resultData}</pre>
         </>
       )}

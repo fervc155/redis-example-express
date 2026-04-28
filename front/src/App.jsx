@@ -61,6 +61,21 @@ export default function App() {
         </div>
       ),
     },
+    {
+      label: "Nginx Cache",
+      content: (
+        <>
+          <EndpointTester
+            label="Endpoint with no nginx"
+            path="http://localhost:4000/data"
+          />
+          <EndpointTester
+            label="Nginx (MISS → HIT)"
+            path="http://localhost:8080/data"
+          />
+        </>
+      ),
+    },
   ];
 
   return (
