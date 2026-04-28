@@ -10,6 +10,11 @@ npm run dev
 npm init -y
 npm install express ioredis sqlite3
 
+## Setup nginx cache
+
+cd back
+docker compse up --build
+
 ## Redis (Docker)
 
 docker run -d -p 6379:6379 redis
